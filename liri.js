@@ -24,10 +24,19 @@ var Spotify = require('node-spotify-api');
 // Create Spotify object
 var spotify = new Spotify(keys.spotify);
 
-// Deault Spotify song
-var DefaultSong =  "The Sign";
+// Default Spotify song
+const DefaultSong =  "The Sign";
 
-// Log function
+// Default Movie
+const DefaultMovie = "Mr. Nobody";
+
+// Command file
+const commandFile = "random.txt";
+
+// Log file
+const logFile = "log.txt";
+
+// Logging function
 var log = (data) => {
 
     // Write to data to console
@@ -35,9 +44,9 @@ var log = (data) => {
 
     // Write data to log file
     try {
-        fs.appendFileSync("log.txt", (data + "\n"), "utf8");
+        fs.appendFileSync(logFile, (data + "\n"), "utf8");
     } catch (err) {
-        console.log("Liri: Sorry an error occured: " + err);
+        console.log("Liri: Sorry an error occured writing to " + logFile + ": " + err);
     }
    
 };
@@ -91,6 +100,24 @@ var displayConcertEventInfo = (artist, events) => {
     });
 }
 
+// Display Movie data
+var displayMovieInfo = (movie, data) => {
+    var movieLogData;
+
+    // Create movie data
+    movieLogData = "--------------------------------\n" +
+                "Title: " + movie + "\n" +
+                "Year Release: " + data.Year + "\n" +
+                "IMDB Rating: " + data.Ratings[0].Value + "\n" +
+                "Rotten Tomatoes Rating: " + data.Ratings[1].Value + "\n" +
+                "Country: " + data.Country + "\n" +
+                "Plot: " + data.Plot + "\n" +
+                "Actors: " + data.Actors + "\n";
+
+    // Log event data
+    log(movieLogData);
+};
+
 // Function to get concert information
 var getConcertInfo = (args) => {
     if (args.length > 1) {
@@ -116,7 +143,7 @@ var getConcertInfo = (args) => {
         });
     } else { 
         // User didn't give enough information  
-        log("Missing command line argument. Please specify a band or artist.");
+        log("Liri: Missing command line argument. Please specify a band or artist.");
     }
 };
 
@@ -149,13 +176,86 @@ var getSongInfo = (args) => {
 
 // Function to get movie information
 var getMovieInfo = (args) => {
-    log("getMovieInfo: started.");
+    var movie;
+    var queryResult;
+
+    // Get movie to query
+    if (args.length > 1)
+        movie = args.slice(1).join(" ");
+    else 
+        movie = DefaultMovie;
+
+    // Query movie information
+    axios.get("http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy")
+    .then(function (response) {   
+        //console.log(JSON.stringify(response.data, null, 2));
+        if (response.data.Response === "True")
+            // Display movie information  
+            displayMovieInfo(movie, response.data);
+        else
+            log("Liri: getMovieInfo: Sorry an error occured: " + response.data.Error);
+    })
+    .catch(function (error) {
+        // Something really bad happened... :(
+        log("Liri: getMovieInfo: Sorry an error occured: " + error);
+    });
 };
 
 // Function to get what-it-says information
 var getWhatItSaysInfo = (args) => {
-    log("getWhatItSaysInfo: started.");
+    var fileData;
+    var commands;
+    var command = [];
+
+    // Read command data from file
+    try {
+        var fileData = fs.readFileSync(commandFile, "utf8");
+
+        // Check for file data
+        if (fileData.length == 0) {
+            console.log("Liri: Sorry an error occured reading from " + commandFile + ": No command data found.");
+            return;
+        }
+
+        // Split file data by new lines
+        commands = fileData.split("\r\n");
+
+        // Process each command in the file
+        commands.forEach(function(data) {
+            // Create command array
+            command.push(data.substring(0, data.indexOf(" ")));
+            command.push(data.substring(data.indexOf(" ")).trim());    
+            // Process command
+            processCommand(command);
+            command.splice(0, command.length);
+        });
+    } catch (err) {
+        console.log("Liri: Sorry an error occured reading from " + commandFile + ": " + err);
+    }
 };
+
+// Process Command
+var processCommand = (args) => {
+
+    // Process command line arguments
+    switch (args[0]) {
+        case "concert-this" :
+            getConcertInfo(args);
+            break;
+        case "spotify-this-song" :
+            getSongInfo(args);
+            break;
+        case "movie-this" :        
+            getMovieInfo(args);
+            break;
+        case "do-what-it-says" :
+            getWhatItSaysInfo(args);
+            break;
+        default:
+           log("Liri: Unknown command \"" + args[0] + "\"");
+    }
+    
+}
 
 // Let's get it going...
 log("Liri: started!!!");
@@ -165,29 +265,14 @@ var args = process.argv.slice(2);
 
 // Ensure command line (arguments are present
 if (args.length == 0) {
-    log("Missing command line arguments.");
+    log("Liri: Missing command line arguments.");
     return;
 }
 
 // Log the Liri command
-log("Liri command: " + args.join(" "));
+log("Liri: Command: " + args.join(" "));
 
 // Process command
-switch (args[0]) {
-    case "concert-this" :
-        getConcertInfo(args);
-        break;
-    case "spotify-this-song" :
-        getSongInfo(args);
-        break;
-    case "movie-this" :        
-        getMovieInfo(args);
-        break;
-    case "do-what-it-says" :
-        getWhatItSaysInfo(args);
-        break;
-    default:
-       log("Unknown command \"" + args[0] + "\"");
-}
+processCommand(args);
 
     
