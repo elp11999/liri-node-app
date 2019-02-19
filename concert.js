@@ -1,8 +1,11 @@
 //
-// LIRI Bot
+// Project LIRI
 // LIRI (Interpretation and Recognition Interface)
+// LIRI will search Spotify for songs, Bands in Town for concerts,
+// and OMDB for movies.
 //
-// LIRI Concert information
+// concert.js - Proesses concert requests 
+//
 
 // Load Axios library
 var axios = require('axios');

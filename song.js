@@ -1,8 +1,14 @@
 //
-// LIRI Bot
+// Project LIRI
 // LIRI (Interpretation and Recognition Interface)
+// LIRI will search Spotify for songs, Bands in Town for concerts,
+// and OMDB for movies.
 //
-// LIRI Song information
+// log.js - Proesses song requests 
+//
+
+// Load DotEnv library
+require("dotenv").config();
 
 // Load Spotify library
 var Spotify = require('node-spotify-api');

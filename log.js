@@ -1,8 +1,11 @@
 //
-// LIRI Bot
+// Project LIRI
 // LIRI (Interpretation and Recognition Interface)
+// LIRI will search Spotify for songs, Bands in Town for concerts,
+// and OMDB for movies.
 //
-// LIRI Log function
+// log.js - Writes log messages to a log file "log.txt".
+//
 
 // Load File System library
 var fs = require("fs");

@@ -1,6 +1,11 @@
 //
-// whatitsays.js
-// 
+// Project LIRI
+// LIRI (Interpretation and Recognition Interface)
+// LIRI will search Spotify for songs, Bands in Town for concerts,
+// and OMDB for movies.
+//
+// whatitsays.js - Proesses command requests in file random.txt
+//
 
 // Load File System library
 var fs = require("fs");
@@ -8,8 +13,8 @@ var fs = require("fs");
 // Load the log function
 var LiriLog = require('./log.js');
 
-// Load the processCommand function
-var LiriProcessCommand = require('./liri.js');
+// Load the dispatcher function
+var LiriProcessCommand = require('./dispatcher.js');
 
 // Command file
 const commandFile = "random.txt";
