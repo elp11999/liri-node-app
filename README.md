@@ -17,6 +17,7 @@
     * Example: node liri.js concert-this Slayer
     * This example will display all the upcoming concerts for Slayer
     * Below is a screen shot of this example:
+    * ![ScreenShot](https://raw.github.com/elp11999/liri-node-app/master/images/concert-this.png)
   * spotify-this-song [name of a song]
     * Example: node liri.js spotify-this-song Hells Bells
     * This example will display all the known tracks for the song Hells Bells
