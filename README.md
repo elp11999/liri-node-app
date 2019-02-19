@@ -17,19 +17,22 @@
     * Example: node liri.js concert-this Slayer
     * This example will display all the upcoming concerts for Slayer
     * Below is a screen shot of this example:
-    * ![ScreenShot](https://raw.github.com/elp11999/liri-node-app/master/images/concert-this.png)
+    ![ScreenShot](https://raw.github.com/elp11999/liri-node-app/master/images/concert-this.png)
   * spotify-this-song [name of a song]
     * Example: node liri.js spotify-this-song Hells Bells
     * This example will display all the known tracks for the song Hells Bells
     * Below is a screen shot of this example:
+    ![ScreenShot](https://raw.github.com/elp11999/liri-node-app/master/images/spotify-this-song.png)
   * movie-this [name of a movie]
     * Example: node liri.js movie-this Pulp Fiction
     * This example will display information about the movie Pulp Fiction
-    * Below is a screen shot of this example:
+    * Below is a screen shot of this example:    
+    ![ScreenShot](https://raw.github.com/elp11999/liri-node-app/master/images/movie-this.png)
   * do-what-it-says
     * Example: node liri.js do-what-it-says
     * This example will read and process commands from the file readme.txt.        
     * Below is a screen shot of this example:
+    ![ScreenShot](https://raw.github.com/elp11999/liri-node-app/master/images/do-what-it-says.png)
 
 * If you decide to clone this repository and check it out, please follow these instructions:
   * Make sure you have NodeJS installed.
