@@ -20,12 +20,16 @@ const DefaultMovie = "Mr. Nobody";
 var displayMovieInfo = (movie, data) => {
     var movieLogData;
 
+    // Get movie ratings
+    var imdbRating = (data.Ratings.length > 0) ? data.Ratings[0].Value : "N/A";
+    var rottenTomatoesRating = (data.Ratings.length > 1) ? data.Ratings[1].Value : "N/A";
+
     // Create movie data
     movieLogData = "--------------------------------\n" +
                 "Title: " + movie + "\n" +
                 "Year Release: " + data.Year + "\n" +
-                "IMDB Rating: " + data.Ratings[0].Value + "\n" +
-                "Rotten Tomatoes Rating: " + data.Ratings[1].Value + "\n" +
+                "IMDB Rating: " + imdbRating + "\n" +
+                "Rotten Tomatoes Rating: " + rottenTomatoesRating + "\n" +
                 "Country: " + data.Country + "\n" +
                 "Plot: " + data.Plot + "\n" +
                 "Actors: " + data.Actors + "\n";
