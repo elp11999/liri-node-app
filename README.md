@@ -1,6 +1,6 @@
 # liri-node-app
 
-* This project is a NodeJS based application.
+* This project is a NodeJS based application. The project is call LIRI. LIRI is a Language Interpretation and Recognition Interface. LIRI will search Spotify for songs, Bands in Town for concerts, and OMDB for movies. 
 * This project was a perfect way for me to get introduced to NodeJS.
 * This project uses the following NPM packages:
   * Node-Spotify-API
