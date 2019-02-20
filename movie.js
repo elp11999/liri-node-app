@@ -17,7 +17,7 @@ var LiriLog = require('./log.js');
 const DefaultMovie = "Mr. Nobody";
 
 // Display Movie data
-var displayMovieInfo = (movie, data) => {
+var displayMovieInfo = (data) => {
     var movieLogData;
 
     // Get movie ratings
@@ -26,7 +26,7 @@ var displayMovieInfo = (movie, data) => {
 
     // Create movie data
     movieLogData = "--------------------------------\n" +
-                "Title: " + movie + "\n" +
+                "Title: " + data.Title + "\n" +
                 "Year Release: " + data.Year + "\n" +
                 "IMDB Rating: " + imdbRating + "\n" +
                 "Rotten Tomatoes Rating: " + rottenTomatoesRating + "\n" +
@@ -55,7 +55,7 @@ var getMovieInfo = (args) => {
         //console.log(JSON.stringify(response.data, null, 2));
         if (response.data.Response === "True")
             // Display movie information  
-            displayMovieInfo(movie, response.data);
+            displayMovieInfo(response.data);
         else
         LiriLog("Liri: getMovieInfo: Sorry an error occured: " + response.data.Error);
     })

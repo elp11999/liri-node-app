@@ -17,7 +17,7 @@ var moment = require('moment');
 var LiriLog = require('./log.js');
 
 // Function to display concert event Info
-var displayConcertEventInfo = (artist, events) => {
+var displayConcertEventInfo = (events) => {
     var location;
     var date;
     var eventLogData;
@@ -36,7 +36,7 @@ var displayConcertEventInfo = (artist, events) => {
 
         // Create event data
         eventLogData = "--------------------------------\n" +
-                    "Artist: " + artist + "\n" +
+                    "Artist: " + event.lineup[0] + "\n" +
                     "Venue: " + event.venue.name + "\n" +
                     "Location: " + location + "\n" +
                     "Date: " +  date;
@@ -56,10 +56,10 @@ var getConcertInfo = (args) => {
         // Query events for the artist
         axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
         .then(function (response) {     
-            //console.log(JSON.stringify(response, null, 2));
+            //console.log(JSON.stringify(response.data, null, 2));
             if (response.data.length > 0) {
                 // Display the query results
-                displayConcertEventInfo(artist, response.data);
+                displayConcertEventInfo(response.data);
             } else {
                 // Oops... No data return for the artist
                 LiriLog("Liri: Sorry no events scheduled for artist: " + artist);

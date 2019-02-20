@@ -26,17 +26,17 @@ var spotify = new Spotify(keys.spotify);
 const DefaultSong =  "The Sign";
 
 // Function to display song info
-var displaySongInfo = (song, tracks) => {
+var displaySongInfo = (tracks) => {
     var songLogData;
 
-    //console.log(JSON.stringify(tracks, null, 2));
     // Loop thru tracks
     tracks.forEach(function(track) {
 
         // Create song data
         songLogData = "----------------------------------------------\n" +
                     "Artist: " + track.album.artists[0].name + "\n" +
-                    "Song: " + song + "\n" +
+                    "Song: " + track.name + "\n" +
+                    //"Release Date: " + track.album.release_date + "\n" +
                     "Preview link: " + track.preview_url + "\n" +
                     "Album: " +  track.album.name; 
 
@@ -58,9 +58,9 @@ var getSongInfo = (args) => {
     spotify.search({ type: 'track', query: song, limit: 10 })
     .then(function(response) {      
         //console.log(JSON.stringify(response, null, 2));
-        if (response.tracks.items.length > 0) {
+        if (response.tracks.items.length > 0) {    
             // Display song information  
-            displaySongInfo(song, response.tracks.items);
+            displaySongInfo(response.tracks.items);
         } else {
             // Oops... No data return for the artist
             LiriLog("Liri: Sorry no information for song: " + song);
