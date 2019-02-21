@@ -10,6 +10,9 @@
 // Load the log function
 var LiriLog = require('./log.js');
 
+// Load the Liri usage function
+var LiriUsage = require('./usage.js');
+
 // Load the getConcertInfo function
 var LiriConcertInfo = require('./concert.js');
 
@@ -36,8 +39,18 @@ var processCommand = (args) => {
         case "do-what-it-says" :
             LiriWhatItSaysInfo(args);
             break;
+        case "?" :
+        case "-?" :
+        case "h" :
+        case "-h" :
+        case "help" :
+        case "-help" :
+            LiriUsage();
+            break;
         default:
-        LiriLog("Liri: Unknown command \"" + args[0] + "\"");
+            LiriLog("Liri: Unknown command \"" + args[0] + "\"");
+            LiriUsage();
+            break;
     }    
 };
 

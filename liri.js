@@ -13,6 +13,9 @@ var LiriLog = require('./log.js');
 // Load the processCommand function
 var LiriProcessCommand = require('./dispatcher.js');
 
+// Load the Liri usage function
+var LiriUsage = require('./usage.js');
+
 // Let's get it going...
 LiriLog("Liri: started.");
 
@@ -22,6 +25,7 @@ var args = process.argv.slice(2);
 // Ensure command line arguments are present
 if (args.length == 0) {
     LiriLog("Liri: Missing command line arguments.");
+    LiriUsage();
     return;
 }
 
