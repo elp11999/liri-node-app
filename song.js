@@ -4,7 +4,7 @@
 // LIRI will search Spotify for songs, Bands in Town for concerts,
 // and OMDB for movies.
 //
-// log.js - Proesses song requests 
+// song.js - Proesses song requests 
 //
 
 // Load DotEnv library

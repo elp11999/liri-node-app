@@ -56,10 +56,14 @@ var getConcertInfo = (args) => {
         // Query events for the artist
         axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
         .then(function (response) {     
-            //console.log(JSON.stringify(response.data, null, 2));
+            //console.log(JSON.stringify(response.data, null, 2));   
             if (response.data.length > 0) {
-                // Display the query results
-                displayConcertEventInfo(response.data);
+                if (response.data.search("Not found")) {
+                    LiriLog("Liri: Sorry no events scheduled for artist: " + artist);
+                } else {
+                    // Display the query results
+                    displayConcertEventInfo(response.data);
+                }
             } else {
                 // Oops... No data return for the artist
                 LiriLog("Liri: Sorry no events scheduled for artist: " + artist);
